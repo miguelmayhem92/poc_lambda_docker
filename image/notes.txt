@@ -1,0 +1,53 @@
+create a cdk projectin the repo
+cdk init app --language typescript
+
+then create a folder called image and a source folder
+* in the source create the app
+* int the image folder level the requirements
+
+then create te docker file in the image folder
+
+then test the container
+cd image
+docker build -t docker-image:test . (using docker file)
+docker run -p 9000:8080 docker-image:test
+
+to test the endpoin locally
+curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d "{}" 
+or 
+curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d "{"""msg""":"""hello"""}"   (for multiple arguments on windows)
+
+
+to deploy on lambda:
+
+in the lib folder:
+* open the ts file
+ * set the docker function
+ * set the function url
+ * set the output
+
+ aws configure user
+ permissions:
+
+ * lambda
+ * s3
+ * cloudformation
+ * ssm
+ * ec2containerregistry
+ * IAM 
+ 
+ note that resources are going to be created in each aws service
+
+ deploy the container
+ cdk deploy
+
+ after a couple of minutes check the logs and accept
+
+ finally the container is deployed in lambda
+
+
+setup bootstrap aws using
+cdk bootstrap --region eu-west-3
+
+
+
